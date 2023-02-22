@@ -1,33 +1,36 @@
 import { useState } from "react";
-import reactLogo from "./assets/react.svg";
+import { Routes, Route } from "react-router";
 import "./App.css";
+import LandingLayout from "./layouts/LandingLayout";
+import NoPage from "./pages/NoPage";
+import Home from "./pages/landing/Home";
+import Login from "./pages/landing/Login";
+import Signup from "./pages/landing/Signup";
+import DashboardLayout from "./layouts/DashboardLayout";
+import DashboardHome from "./pages/dashboard/DashboardHome";
+import Profile from "./pages/dashboard/Profile";
+import Articles from "./pages/landing/Articles";
+import SingleArticle from "./pages/landing/SingleArticle";
+import GithubLoginSuccess from "./components/landing/GithubLoginSuccess";
 
 function App() {
-  const [count, setCount] = useState(0);
-
   return (
-    <div className="App">
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src="/vite.svg" className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://reactjs.org" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </div>
+    <Routes>
+      <Route path="/" element={<LandingLayout />}>
+        <Route path="*" element={<NoPage />} />
+        <Route path="" element={<Home />} />
+        <Route path="articles" element={<Articles />} />
+        <Route path="articles/:id" element={<SingleArticle />} />
+        <Route path="auth/login" element={<Login />} />
+        <Route path="auth/github/success" element={<GithubLoginSuccess />} />
+
+        <Route path="auth/signup" element={<Signup />} />
+      </Route>
+      <Route path="/dashboard" element={<DashboardLayout />}>
+        <Route path="" element={<DashboardHome />} />
+        <Route path="profile" element={<Profile />} />
+      </Route>
+    </Routes>
   );
 }
 
