@@ -8,7 +8,7 @@ import AboutPage from "./pages/landing/AboutPage";
 import ArticleDetailPage from "./pages/landing/articles/ArticleDetailPage";
 import ArticlesListPage from "./pages/landing/articles/ArticlesListPage";
 import CategorizedArticlesPage from "./pages/landing/articles/CategorizedArticlesPage";
-import GithubLoginSuccessPage from "./pages/landing/auth/GithubLoginSuccessPage";
+import GithubLoginCallbackPage from "./pages/landing/auth/GithubLoginCallbackPage";
 import HomePage from "./pages/landing/HomePage";
 import NotFoundPage from "./pages/NotFoundPage";
 
@@ -25,12 +25,12 @@ function App() {
           path="articles/category/:categoryName"
           element={<CategorizedArticlesPage />}
         />
-      </Route>
-      <Route path="/dashboard" element={<DashboardLayout />}>
         <Route
           path="auth/github/success"
-          element={<GithubLoginSuccessPage />}
+          element={<GithubLoginCallbackPage />}
         />
+      </Route>
+      <Route path="/dashboard" element={<DashboardLayout />}>
         <Route path="" element={<DashboardHomePage />} />
         <Route path="profile" element={<ProfilePage />} />
       </Route>

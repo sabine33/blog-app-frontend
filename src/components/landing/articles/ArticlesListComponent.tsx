@@ -28,7 +28,7 @@ function ArticlesListComponent({
     <div>
       <div className="articles">
         {currentItems.map((article: ArticleType) => (
-          <SingleArticleCardComponent article={article} />
+          <SingleArticleCardComponent article={article} key={article.id} />
         ))}
       </div>
       <div className="d-flex justify-content-center py-3">

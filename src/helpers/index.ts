@@ -1,6 +1,5 @@
 import axios from "axios";
-import { TabContent } from "react-bootstrap";
-import { ArticleType } from "../types";
+import { ArticleType, UserType } from "../types";
 const GITHUB_PROFILE_URL = import.meta.env.VITE_API_URL + "/auth/profile";
 
 export const storeToLocalStorage = (key: string, data: any) => {
@@ -11,7 +10,7 @@ export const getFromLocalStorage = (key: string) => {
   return JSON.parse(localStorage.getItem(key) || "{}");
 };
 
-export const getGithubUserProfile = async (code: string) => {
+export const getGithubUserProfile = async (code: string): Promise<UserType> => {
   const { data } = await axios({
     url: GITHUB_PROFILE_URL,
     method: "get",
@@ -19,7 +18,7 @@ export const getGithubUserProfile = async (code: string) => {
       code,
     },
   });
-  return data;
+  return data.data as UserType;
 };
 
 export const getHeadlineArticle = (articles: ArticleType[]) => {
