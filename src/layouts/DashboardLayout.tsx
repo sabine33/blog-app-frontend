@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Outlet } from "react-router";
-import Footer from "../components/dashboard/Footer";
-import Header from "../components/dashboard/Header";
+import Footer from "../components/dashboard/FooterComponent";
+import Header from "../components/dashboard/HeaderComponent";
 
 function DashboardLayout() {
   const [message, setMessage] = useState("");

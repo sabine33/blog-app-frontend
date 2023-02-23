@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import queryString from "query-string";
-import { getGithubUserProfile } from "../../helpers";
-function GithubLoginSuccess() {
+import { getGithubUserProfile } from "../../../helpers";
+function GithubLoginSuccessPage() {
   const [user, setUser] = useState({});
 
   useEffect(() => {
@@ -14,9 +14,8 @@ function GithubLoginSuccess() {
       console.log({ code });
 
       getGithubUserProfile(code.toString())
-        .then((resp) => {
-          alert(JSON.stringify(resp));
-          setUser(user);
+        .then((response) => {
+          setUser(response.data);
         })
         .catch((err) => {
           console.log("Error occured while fetching user info.");
@@ -36,4 +35,4 @@ function GithubLoginSuccess() {
   );
 }
 
-export default GithubLoginSuccess;
+export default GithubLoginSuccessPage;

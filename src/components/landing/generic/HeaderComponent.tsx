@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import GithubLoginButton from "../generic/GithubLoginButton";
+import GithubLoginButton from "../auth/GithubLoginButtonComponent";
 const BLOG_NAME = "LF NEWSPAPER";
 function Header() {
+  const [isNavCollapsed, setIsNavCollapsed] = useState(true);
+
   const BrandElement = () => (
     <li className="nav-item">
       <Link className="navbar-brand" to="/">
@@ -10,38 +12,44 @@ function Header() {
       </Link>
     </li>
   );
+  const handleNavCollapse = () => setIsNavCollapsed(!isNavCollapsed);
 
   return (
     <header className="blog-header">
       <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
         <div className="container">
-          <ul className="nav navbar-nav navbar-logo mx-auto mx-auto-lg ">
+          <ul className="nav navbar-nav navbar-logo">
             <BrandElement />
           </ul>
 
           <button
-            className="navbar-toggler"
+            className="custom-toggler navbar-toggler"
             type="button"
             data-toggle="collapse"
-            data-target="#navbarToggler"
-            aria-controls="navbarToggler"
-            aria-expanded="false"
+            data-target="#navbarsExample09"
+            aria-controls="navbarsExample09"
+            aria-expanded={!isNavCollapsed ? true : false}
             aria-label="Toggle navigation"
+            onClick={handleNavCollapse}
           >
             <span className="navbar-toggler-icon"></span>
           </button>
-
-          <div className="collapse navbar-collapse" id="navbarToggler">
-            <ul className="navbar-nav ms-auto mt-2 me-5 mt-lg-0">
+          <div
+            className={`${
+              isNavCollapsed ? "collapse" : ""
+            } navbar-collapse py-2`}
+            id="navbarToggler"
+          >
+            <ul className="navbar-nav ms-auto pe-md-3">
               <li className="nav-item active">
-                <a className="nav-link" href="#">
+                <Link className="nav-link" to="/">
                   Home <span className="sr-only"></span>
-                </a>
+                </Link>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="#">
+                <Link className="nav-link" to="/about">
                   About
-                </a>
+                </Link>
               </li>
             </ul>
             <GithubLoginButton />

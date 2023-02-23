@@ -1,17 +1,17 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { Outlet } from "react-router";
-import Categories from "../components/landing/Categories";
-import FeaturedPosts from "../components/landing/FeaturedPosts";
-import Footer from "../components/landing/Footer";
-import Header from "../components/landing/Header";
-import HeadlinePost from "../components/landing/HeadlinePost";
-// import "./Landing.css";
+import Categories from "../components/landing/articles/ArticlesCategoriesComponent";
+import FeaturedPosts from "../components/landing/articles/FeaturedArticlesComponent";
+import Footer from "../components/landing/generic/FooterComponent";
+import Header from "../components/landing/generic/HeaderComponent";
+import { categories } from "../constants/articles";
+
 function Layout() {
   return (
     <div className="">
       <Header />
-      <Categories />
+      <Categories categories={categories} />
       <main className="container">
         <Outlet />
       </main>
