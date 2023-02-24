@@ -7,10 +7,16 @@ function DashboardHomePage() {
     useSelector((state: any) => state.auth);
 
   return (
-    <div className="card shadow-sm">
-      <div className="title h3">Welcome</div>
-      <div>{user.name}</div>
-    </div>
+    <main className="admin__main">
+      <h2 className="">Dashboard</h2>
+      <div className="dashboard">
+        <div className="dashboard__item mt-3">
+          <div className="card">
+            <strong>41</strong> Articles
+          </div>
+        </div>
+      </div>
+    </main>
   );
 }
 

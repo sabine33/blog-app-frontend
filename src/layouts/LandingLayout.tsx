@@ -8,7 +8,7 @@ import Footer from "../components/landing/generic/FooterComponent";
 import Header from "../components/landing/generic/HeaderComponent";
 import { categories } from "../constants/articles";
 import { clearMessage } from "../store/slices/messageSlice";
-
+import "../styles/Landing.scss";
 function Layout() {
   const dispatch = useDispatch();
 

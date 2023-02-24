@@ -28,7 +28,7 @@ function* workGetUserProfile(params: ParamsType) {
   } catch (error: any) {
     const errorMessage = (error as AxiosError) && error?.response.data?.message;
     yield put(setLoginFailed(errorMessage));
-    yield put(setMessage(errorMessage));
+    yield put(setMessage({ content: errorMessage, type: "error" }));
     yield navigate("/");
   }
 }

@@ -2,11 +2,12 @@ import { createSlice } from "@reduxjs/toolkit";
 import { articles } from "../../constants/articles";
 
 export const articlesSlice = createSlice({
-  name: "cats",
+  name: "articles",
   initialState: {
-    articles: articles,
+    articles: [],
     isLoading: false,
     error: null,
+    article: null,
   },
   reducers: {
     getArticlesFetch: (state) => {
@@ -20,10 +21,25 @@ export const articlesSlice = createSlice({
       state.isLoading = false;
       state.error = action.payload.error;
     },
-    filterArticles: (state, action) => {
-      state.articles = state.articles.filter(
-        (article) => article.category == action.payload.category
-      );
+    filterArticles: (state, action) => {},
+    onArticleCreate: (state, action) => {
+      console.log(action.payload);
+    },
+    onArticleUpdate: (state, action) => {
+      console.log("Updating...");
+      console.log(action.payload);
+    },
+    onArticleDelete: (state, action) => {
+      console.log(action.payload);
+      console.log("deleting...");
+    },
+    onArticleFetch: (state, action) => {
+      console.log(action.payload);
+      state.isLoading = true;
+    },
+    getArticleSuccess: (state, action) => {
+      state.article = action.payload;
+      state.isLoading = false;
     },
   },
 });
@@ -32,5 +48,10 @@ export const {
   getArticlesSuccess,
   getArticlesFailure,
   filterArticles,
+  onArticleCreate,
+  onArticleUpdate,
+  onArticleDelete,
+  onArticleFetch,
+  getArticleSuccess,
 } = articlesSlice.actions;
 export default articlesSlice.reducer;

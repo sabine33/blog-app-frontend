@@ -41,7 +41,7 @@ export const authSlice = createSlice({
       localStorage.removeItem("user");
       state.error = action.payload;
     },
-    removeUser: (state) => {
+    logoutUser: (state) => {
       state.user = null;
       state.code = "";
       localStorage.removeItem("code");
@@ -50,6 +50,6 @@ export const authSlice = createSlice({
     },
   },
 });
-export const { getUserProfile, setUserProfile, removeUser, setLoginFailed } =
+export const { getUserProfile, setUserProfile, logoutUser, setLoginFailed } =
   authSlice.actions;
 export default authSlice.reducer;

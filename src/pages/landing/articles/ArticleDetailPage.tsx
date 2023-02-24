@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import { articles } from "../../../constants/articles";
 import { ArticleType } from "../../../types";
-import "./SingleArticle.css";
+import "../../../styles/SingleArticle.scss";
 function ArticleDetailPage() {
   const [article, setArticle] = useState<ArticleType | undefined>(undefined);
   const { id } = useParams();

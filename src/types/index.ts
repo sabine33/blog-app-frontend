@@ -46,3 +46,22 @@ export type UserType = {
   created_at: Date;
   updated_at: Date;
 };
+
+export type APIResponseType = {
+  data: any;
+  message: string;
+  status: boolean;
+  statusCode: number;
+};
+
+export type AdminArticleType = {
+  title: string;
+  content: string;
+  thumbnail: File;
+};
+
+type ContentType = "error" | "notification";
+export type MessageType = {
+  type: ContentType | null;
+  content: string;
+};

@@ -1,9 +1,17 @@
 import React from "react";
+import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { formatDate, sliceContent } from "../../../helpers";
+import { onArticleDelete } from "../../../store/slices/articlesSlice";
 import { ArticleType } from "../../../types";
 
-function SingleArticleCardComponent({ article }: { article: ArticleType }) {
+function SingleArticleCardComponent({
+  article,
+  isEditable = false,
+}: {
+  article: ArticleType;
+  isEditable: boolean;
+}) {
   return (
     <div className="item card shadow-md">
       <img src={article.thumbnailUrl} />
@@ -22,8 +30,23 @@ function SingleArticleCardComponent({ article }: { article: ArticleType }) {
             >
               View
             </Link>
+            {isEditable && (
+              <>
+                <Link
+                  to={`/dashboard/articles/${article.id}`}
+                  className="btn btn-sm btn-outline-secondary"
+                >
+                  Edit
+                </Link>
+                <button className="btn btn-sm btn-outline-secondary">
+                  <i className="fa fa-trash"></i>
+                </button>
+              </>
+            )}
           </div>
-          <small className="text-muted">{formatDate(article.createdAt)}</small>
+          <small className="text-muted date">
+            {article.createdAt ? formatDate(new Date(article.createdAt)) : ""}
+          </small>
         </div>
       </div>
     </div>

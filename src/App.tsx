@@ -1,7 +1,8 @@
 import { Routes, Route } from "react-router";
-import "./App.css";
+import "./styles/App.scss";
 import DashboardLayout from "./layouts/DashboardLayout";
 import LandingLayout from "./layouts/LandingLayout";
+import AdminArticlesPage from "./pages/dashboard/AdminArticlesPage";
 import DashboardHomePage from "./pages/dashboard/DashboardHomePage";
 import ProfilePage from "./pages/dashboard/ProfilePage";
 import AboutPage from "./pages/landing/AboutPage";
@@ -11,6 +12,7 @@ import CategorizedArticlesPage from "./pages/landing/articles/CategorizedArticle
 import GithubLoginCallbackPage from "./pages/landing/auth/GithubLoginCallbackPage";
 import HomePage from "./pages/landing/HomePage";
 import NotFoundPage from "./pages/NotFoundPage";
+import AdminArticleAddEditComponent from "./components/dashboard/articles/AdminArticleAddEditComponent";
 
 function App() {
   return (
@@ -33,6 +35,8 @@ function App() {
       <Route path="/dashboard" element={<DashboardLayout />}>
         <Route path="" element={<DashboardHomePage />} />
         <Route path="profile" element={<ProfilePage />} />
+        <Route path="articles" element={<AdminArticlesPage />} />
+        <Route path="articles/:id" element={<AdminArticleAddEditComponent />} />
       </Route>
     </Routes>
   );
