@@ -1,9 +1,11 @@
 import React, { useState } from "react";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import GithubLoginButton from "../auth/GithubLoginButtonComponent";
 const BLOG_NAME = "LF NEWSPAPER";
 function Header() {
   const [isNavCollapsed, setIsNavCollapsed] = useState(true);
+  const { user, isLoggedIn } = useSelector((state: any) => state.auth);
 
   const BrandElement = () => (
     <li className="nav-item">
@@ -52,7 +54,20 @@ function Header() {
                 </Link>
               </li>
             </ul>
-            <GithubLoginButton />
+            {!isLoggedIn ? (
+              <GithubLoginButton />
+            ) : (
+              <div className="d-grid gap-2">
+                <Link
+                  type="button"
+                  id=""
+                  to="/dashboard"
+                  className="btn btn-primary"
+                >
+                  Dashboard
+                </Link>
+              </div>
+            )}
           </div>
         </div>
       </nav>

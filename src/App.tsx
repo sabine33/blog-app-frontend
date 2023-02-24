@@ -1,16 +1,18 @@
 import { Routes, Route } from "react-router";
-import "./App.css";
+import "./styles/App.scss";
 import DashboardLayout from "./layouts/DashboardLayout";
 import LandingLayout from "./layouts/LandingLayout";
+import AdminArticlesPage from "./pages/dashboard/AdminArticlesPage";
 import DashboardHomePage from "./pages/dashboard/DashboardHomePage";
 import ProfilePage from "./pages/dashboard/ProfilePage";
 import AboutPage from "./pages/landing/AboutPage";
 import ArticleDetailPage from "./pages/landing/articles/ArticleDetailPage";
 import ArticlesListPage from "./pages/landing/articles/ArticlesListPage";
 import CategorizedArticlesPage from "./pages/landing/articles/CategorizedArticlesPage";
-import GithubLoginSuccessPage from "./pages/landing/auth/GithubLoginSuccessPage";
+import GithubLoginCallbackPage from "./pages/landing/auth/GithubLoginCallbackPage";
 import HomePage from "./pages/landing/HomePage";
 import NotFoundPage from "./pages/NotFoundPage";
+import AdminArticleAddEditComponent from "./components/dashboard/articles/AdminArticleAddEditComponent";
 
 function App() {
   return (
@@ -25,14 +27,16 @@ function App() {
           path="articles/category/:categoryName"
           element={<CategorizedArticlesPage />}
         />
-      </Route>
-      <Route path="/dashboard" element={<DashboardLayout />}>
         <Route
           path="auth/github/success"
-          element={<GithubLoginSuccessPage />}
+          element={<GithubLoginCallbackPage />}
         />
+      </Route>
+      <Route path="/dashboard" element={<DashboardLayout />}>
         <Route path="" element={<DashboardHomePage />} />
         <Route path="profile" element={<ProfilePage />} />
+        <Route path="articles" element={<AdminArticlesPage />} />
+        <Route path="articles/:id" element={<AdminArticleAddEditComponent />} />
       </Route>
     </Routes>
   );

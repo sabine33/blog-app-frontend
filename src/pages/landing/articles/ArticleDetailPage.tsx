@@ -1,20 +1,27 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router";
-import { articles } from "../../../constants/articles";
 import { ArticleType } from "../../../types";
-import "./SingleArticle.css";
+import "../../../styles/SingleArticle.scss";
+import { useSelector } from "react-redux";
+import { Article } from "../../../helpers/apiHelper";
+import Parser from "html-react-parser";
+
 function ArticleDetailPage() {
   const [article, setArticle] = useState<ArticleType | undefined>(undefined);
   const { id } = useParams();
 
   useEffect(() => {
     if (id) {
-      const article = articles.find(
-        (article: ArticleType) => article.id === +id
-      );
-      setArticle(article);
+      Article.getArticle(+id)
+        .then((response) => {
+          let article = response.data;
+          setArticle(article);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     }
-  }, []);
+  }, [id]);
 
   return (
     <div className="container article">
@@ -24,7 +31,9 @@ function ArticleDetailPage() {
           <div className="article__thumbnail">
             <img src={article?.thumbnailUrl} className="thumbnail" />
           </div>
-          <div className="article__content text-start">{article?.content}</div>
+          <div className="article__content text-start">
+            <div>{Parser(article?.content ?? "")}</div>
+          </div>
           <div className="article__footer">
             <a href="#">SHARE</a>
           </div>

@@ -1,18 +1,12 @@
 #root {
-  /* margin: 0 auto; */
-  /* padding: 2rem; */
   text-align: center;
 }
 
 .articles {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-}
-.articles {
   margin: 5px;
   display: flex;
   justify-content: center;
+  flex-wrap: wrap;
   gap: 10px;
 }
 
@@ -21,6 +15,10 @@
   width: 300px;
   max-width: 400px;
   min-width: 300px;
+  .card-text,
+  .date {
+    font-size: 1.2rem !important;
+  }
 }
 
 .pagination > li {
