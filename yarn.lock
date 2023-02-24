@@ -1000,6 +1000,11 @@
   dependencies:
     "@types/yargs-parser" "*"
 
+"@upload-io/upload-api-client-upload-js@^2.15.0":
+  version "2.15.0"
+  resolved "https://registry.yarnpkg.com/@upload-io/upload-api-client-upload-js/-/upload-api-client-upload-js-2.15.0.tgz#172cf92805f5bbc74a30172f5f1dc6841bd6ae9e"
+  integrity sha512-UGqT4wxCDhTTKnTLvqtKCyPJSswA2z6/Z6/sMakWGdJBBuwCHcOyXgoWafbPILrgWp3oMMQjnTfwwMBmR0O54w==
+
 "@vitejs/plugin-react-swc@^3.0.0":
   version "3.2.0"
   resolved "https://registry.yarnpkg.com/@vitejs/plugin-react-swc/-/plugin-react-swc-3.2.0.tgz#7c4f6e116a296c27f680d05750f9dbf798cf7709"
@@ -3007,6 +3012,11 @@ postcss@^8.4.21:
     picocolors "^1.0.0"
     source-map-js "^1.0.2"
 
+preact@^10.6.5:
+  version "10.12.1"
+  resolved "https://registry.yarnpkg.com/preact/-/preact-10.12.1.tgz#8f9cb5442f560e532729b7d23d42fd1161354a21"
+  integrity sha512-l8386ixSsBdbreOAkqtrwqHwdvR35ID8c3rKPa8lCWuO86dBi32QWHV4vfsZK1utLLFMvw+Z5Ad4XLkZzchscg==
+
 pretty-format@^29.4.3:
   version "29.4.3"
   resolved "https://registry.yarnpkg.com/pretty-format/-/pretty-format-29.4.3.tgz#25500ada21a53c9e8423205cf0337056b201244c"
@@ -3020,6 +3030,11 @@ private@^0.1.6, private@~0.1.5:
   version "0.1.8"
   resolved "https://registry.yarnpkg.com/private/-/private-0.1.8.tgz#2381edb3689f7a53d653190060fcf822d2f368ff"
   integrity sha512-VvivMrbvd2nKkiG38qjULzlc+4Vx4wm/whI9pQD35YrARNnhxeiRktSOhSukRLFNlzg6Br/cJPet5J/u19r/mg==
+
+progress-smoother@^1.4.0:
+  version "1.4.0"
+  resolved "https://registry.yarnpkg.com/progress-smoother/-/progress-smoother-1.4.0.tgz#6a865c5c788118082aca5514f72a3f46227e0f3c"
+  integrity sha512-ctIG/KF/3DQ1zQHMWbXjcnicggTsEzZEA2JEnJNrPtK88tmqN9cfQf01yfLWGCBF93R5XN1EUe/z/IV5NKrmCw==
 
 promise@^7.1.1:
   version "7.3.1"
@@ -3259,6 +3274,13 @@ react-transition-group@^4.4.1, react-transition-group@^4.4.2:
     dom-helpers "^5.0.1"
     loose-envify "^1.4.0"
     prop-types "^15.6.2"
+
+react-uploader@^3.7.1:
+  version "3.7.1"
+  resolved "https://registry.yarnpkg.com/react-uploader/-/react-uploader-3.7.1.tgz#c4be4e603bb347c81814f032f3f8161c88e62173"
+  integrity sha512-IcNiAevKBInDstRfOOI6wPlQczvII6iT4fxDN8HEeAwMFmgVX9N9KhcTCd6Upi1kYL3FKvrMcsxha4wkxt1TrA==
+  dependencies:
+    uploader "^3.6.0"
 
 react@^0.13.3:
   version "0.13.3"
@@ -3738,6 +3760,23 @@ update-browserslist-db@^1.0.10:
   dependencies:
     escalade "^3.1.1"
     picocolors "^1.0.0"
+
+upload-js@^2.11.0:
+  version "2.11.2"
+  resolved "https://registry.yarnpkg.com/upload-js/-/upload-js-2.11.2.tgz#b5292b50ae2a21fdda5c0f8f099f3bd4cedb4776"
+  integrity sha512-q6IkwFLA3kL1MbBMvzCbJC0EHjMgjJ399f5QH3Up5rkoVjYXZxTKRgyJQeRT1HpqPQ3gCJdvZuL/Cv1LjBRGMg==
+  dependencies:
+    "@upload-io/upload-api-client-upload-js" "^2.15.0"
+    progress-smoother "^1.4.0"
+
+uploader@^3.6.0:
+  version "3.6.1"
+  resolved "https://registry.yarnpkg.com/uploader/-/uploader-3.6.1.tgz#2bd76d8527b09f315d0bb906c0feccb45cd0b234"
+  integrity sha512-sTTltZORBRB2NoCVCpFfvN0RpQQBDJt0FuG64bm6rvzAHSR3DMZIl2ImAl3fZxwKRwP4RrqfuX2MvcoCQHKwbg==
+  dependencies:
+    classnames "^2.2.6"
+    preact "^10.6.5"
+    upload-js "^2.11.0"
 
 use-sync-external-store@^1.0.0:
   version "1.2.0"

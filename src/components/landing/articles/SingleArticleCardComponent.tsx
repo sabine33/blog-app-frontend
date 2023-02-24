@@ -21,7 +21,7 @@ function SingleArticleCardComponent({
             {article.title}
           </Link>
         </div>
-        <p className="card-text">{sliceContent(article.content)}</p>
+        <p className="card-text">{article.content}</p>
         <div className="d-flex justify-content-between align-items-center">
           <div className="btn-group">
             <Link

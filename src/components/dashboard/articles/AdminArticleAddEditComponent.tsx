@@ -1,23 +1,23 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Editor } from "react-draft-wysiwyg";
-import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import {
   onArticleCreate,
   onArticleDelete,
   onArticleFetch,
   onArticleUpdate,
 } from "../../../store/slices/articlesSlice";
-import { useLocation, useParams, useRoutes } from "react-router";
+import { useParams } from "react-router";
 import { Article } from "../../../helpers/apiHelper";
 import ReactQuill from "react-quill";
 
 import "react-quill/dist/quill.snow.css";
+import UploadImageComponent, { UploadedFile } from "./UploadImageComponent";
 
 function AdminArticleAddEditComponent() {
-  const { id } = useParams();
+  const { id = -1 } = useParams();
   const dispatch = useDispatch();
   const [title, setTitle] = useState("");
+  const [thumbnailUrl, setThumbnailUrl] = useState("");
   const [content, setContent] = useState("");
 
   useEffect(() => {
@@ -27,6 +27,7 @@ function AdminArticleAddEditComponent() {
           let article = response.data;
           setTitle(article.title);
           setContent(article.content);
+          setThumbnailUrl(article.thumbnailUrl);
         })
         .catch((err) => {
           console.log(err);
@@ -35,12 +36,12 @@ function AdminArticleAddEditComponent() {
   }, [id]);
 
   const handleSubmit = () => {
-    const articleContent = { title, content, userId: -1 };
+    const articleContent = { title, content, thumbnailUrl };
     if (!id || !Number.parseInt(id)) {
       return;
     }
     if (+id < 0) {
-      dispatch(onArticleCreate(articleContent));
+      dispatch(onArticleCreate({ article: articleContent }));
     } else {
       console.log(id);
       dispatch(onArticleUpdate({ id: +id, article: articleContent }));
@@ -49,15 +50,16 @@ function AdminArticleAddEditComponent() {
   const handleDelete = () => {
     dispatch(onArticleDelete({ id }));
   };
-  const onEditorStateChange = (params: any) => {
-    console.log(params);
-  };
 
   const getTitle = () => {
     if (!id) {
       return;
     }
     return +id >= 0 ? "Edit Article" : "Add Article";
+  };
+
+  const handleFileUpload = (fileUrl: string) => {
+    setThumbnailUrl(fileUrl);
   };
 
   return (
@@ -98,6 +100,15 @@ function AdminArticleAddEditComponent() {
                 marginBottom: "100px",
               }}
             />
+          </div>
+          <div className="mb-3">
+            <label htmlFor="" className="form-label">
+              Thumbnail
+            </label>
+            <UploadedFile file={thumbnailUrl} />
+          </div>
+          <div className="mb-3">
+            <UploadImageComponent setOnFileUpload={handleFileUpload} />
           </div>
 
           <button

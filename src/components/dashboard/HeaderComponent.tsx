@@ -20,7 +20,7 @@ function HeaderComponent() {
           className="btn btn-outline-primary text-black"
           replace={true}
           reloadDocument={true}
-          to={"/dashboard/articles/edit/-1"}
+          to={"/dashboard/articles/-1"}
         >
           Add New Article
         </Link>

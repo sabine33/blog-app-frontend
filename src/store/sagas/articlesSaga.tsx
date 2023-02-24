@@ -19,13 +19,10 @@ function* workGetArticlesFetch() {
 
 function* workCreateArticle(params: any) {
   const { article } = params.payload;
+  alert(JSON.stringify(article));
   try {
     const result: APIResponseType = yield call(() =>
-      Article.createArticle({
-        title: "Hello world",
-        content: "test abc",
-        userId: 100,
-      })
+      Article.createArticle(article)
     );
     alert(JSON.stringify(result));
     yield put(setMessage({ content: result.message, type: "notification" }));

@@ -30,5 +30,6 @@ export const formatDate = (date: Date) => {
 };
 
 export const sliceContent = (content: string): string => {
+  if (!content) return "";
   return content.length > 100 ? content.slice(0, 100) + "..." : content;
 };
