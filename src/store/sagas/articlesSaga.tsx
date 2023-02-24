@@ -8,6 +8,7 @@ import { setMessage } from "../slices/messageSlice";
 
 const API_URL = import.meta.env.VITE_APP_API_URL + "articles";
 
+//[TODO]:Backend side pagination
 function* workGetArticlesFetch() {
   try {
     const result: APIResponseType = yield call(() => Article.getArticles());
@@ -19,12 +20,10 @@ function* workGetArticlesFetch() {
 
 function* workCreateArticle(params: any) {
   const { article } = params.payload;
-  alert(JSON.stringify(article));
   try {
     const result: APIResponseType = yield call(() =>
       Article.createArticle(article)
     );
-    alert(JSON.stringify(result));
     yield put(setMessage({ content: result.message, type: "notification" }));
   } catch (ex) {
     console.log(ex);
@@ -51,7 +50,6 @@ function* deleteArticle(params: any) {
   const { id } = params.payload;
   try {
     const result: APIResponseType = yield call(() => Article.deleteArticle(id));
-    alert(JSON.stringify(result));
 
     yield put(setMessage({ content: result.message, type: "notification" }));
   } catch (ex) {

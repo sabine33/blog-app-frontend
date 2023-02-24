@@ -3,6 +3,8 @@ import { ArticleType, APIResponseType, UserType } from "../types";
 import { Auth } from "./apiHelper";
 const GITHUB_PROFILE_URL = import.meta.env.VITE_API_URL + "/auth/profile";
 
+const SLICE_LIMIT = 50;
+
 export const storeToLocalStorage = (key: string, data: any) => {
   localStorage.setItem(key, JSON.stringify(data));
 };
@@ -29,7 +31,12 @@ export const formatDate = (date: Date) => {
   return date.toISOString().split("T")[0];
 };
 
-export const sliceContent = (content: string): string => {
+export const sliceContent = (content: string, length = SLICE_LIMIT): string => {
   if (!content) return "";
-  return content.length > 100 ? content.slice(0, 100) + "..." : content;
+  return content.slice(0, length) + "...";
+};
+
+export const extractContent = (html: string) => {
+  return new DOMParser().parseFromString(html, "text/html").documentElement
+    .textContent;
 };

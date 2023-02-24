@@ -38,7 +38,12 @@ export const UploadedFile = ({ file }: { file: any }) => {
   // const fileUrl = uploader.url(filePath, "thumbnail");
   return (
     <div className="row">
-      <img src={file} className="img-responsive" style={{ width: "200px" }} />
+      <img
+        src={file}
+        className="img-responsive"
+        style={{}}
+        alt="No Image preview available!"
+      />
     </div>
   );
 };

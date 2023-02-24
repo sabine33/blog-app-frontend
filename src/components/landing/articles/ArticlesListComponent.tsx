@@ -6,7 +6,7 @@ import ArticleCard from "./SingleArticleCardComponent";
 
 function ArticlesListComponent({
   articles,
-  itemsPerPage = 10,
+  itemsPerPage = 5,
 }: {
   articles: ArticleType[];
   itemsPerPage: number;
@@ -36,6 +36,7 @@ function ArticlesListComponent({
         ))}
       </div>
       <div className="d-flex justify-content-center py-3">
+        {/* [TODO]:Pagination should be in backend */}
         <ReactPaginate
           breakLabel="..."
           nextLabel="next >"

@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
-import { formatDate, sliceContent } from "../../../helpers";
+import { extractContent, formatDate, sliceContent } from "../../../helpers";
 import { onArticleDelete } from "../../../store/slices/articlesSlice";
 import { ArticleType } from "../../../types";
 
+const DEFAULT_IMAGE = "https://via.placeholder.com/200";
 function SingleArticleCardComponent({
   article,
   isEditable = false,
@@ -14,14 +15,19 @@ function SingleArticleCardComponent({
 }) {
   return (
     <div className="item card shadow-md">
-      <img src={article.thumbnailUrl} />
+      <img
+        src={article.thumbnailUrl ?? DEFAULT_IMAGE}
+        style={{ height: "200px" }}
+      />
       <div className="card-body">
         <div className="h4">
           <Link to={`/articles/${article.id}`} className="nav-link">
             {article.title}
           </Link>
         </div>
-        <p className="card-text">{article.content}</p>
+        <p className="card-text">
+          {sliceContent(extractContent(article.content)!)}
+        </p>
         <div className="d-flex justify-content-between align-items-center">
           <div className="btn-group">
             <Link
@@ -38,9 +44,6 @@ function SingleArticleCardComponent({
                 >
                   Edit
                 </Link>
-                <button className="btn btn-sm btn-outline-secondary">
-                  <i className="fa fa-trash"></i>
-                </button>
               </>
             )}
           </div>

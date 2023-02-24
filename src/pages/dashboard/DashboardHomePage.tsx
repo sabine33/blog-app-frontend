@@ -12,7 +12,7 @@ function DashboardHomePage() {
       <div className="dashboard">
         <div className="dashboard__item mt-3">
           <div className="card">
-            <strong>41</strong> Articles
+            <strong>41</strong> <h4>Articles</h4>
           </div>
         </div>
       </div>

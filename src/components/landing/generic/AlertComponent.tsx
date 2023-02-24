@@ -10,14 +10,6 @@ function AlertComponent() {
 
   useEffect(() => {
     if (message && message.content) {
-      // toast(message.content, {
-      //   icon: "👏",
-      //   style: {
-      //     borderRadius: "10px",
-      //     background: "#333",
-      //     color: "#fff",
-      //   },
-      // });
     }
   }, [message]);
 
