@@ -21,15 +21,18 @@ function CategorizedArticlesPage() {
     <div className="container">
       <div className="row">
         <div className="col">
-          <div className="category__title h3">{categoryName}</div>
+          <div className="my-4 category__title text-center h3">
+            {categoryName}
+          </div>
 
           {categorizedArticles.length < 1 ? (
-            <p>No Articles Found.</p>
+            <p className="text-center">No Articles Found.</p>
           ) : (
             <div className="container">
               <ArticlesListComponent
                 articles={categorizedArticles}
                 itemsPerPage={5}
+                isEditable={false}
               />
             </div>
           )}

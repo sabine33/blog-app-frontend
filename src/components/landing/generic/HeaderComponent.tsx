@@ -23,6 +23,7 @@ function Header() {
           <ul className="nav navbar-nav navbar-logo">
             <BrandElement />
           </ul>
+          {JSON.stringify(isLoggedIn)}
 
           <button
             className="custom-toggler navbar-toggler"
@@ -54,7 +55,7 @@ function Header() {
                 </Link>
               </li>
             </ul>
-            {!isLoggedIn ? (
+            {!user ? (
               <GithubLoginButton />
             ) : (
               <div className="d-grid gap-2">

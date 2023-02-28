@@ -1,57 +1,76 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { articles } from "../../constants/articles";
+import { ArticleType } from "../../types";
+
+type ArticleState = {
+  articles: ArticleType[];
+  loading: boolean;
+  error: string | null;
+};
+const initialState: ArticleState = {
+  articles: [],
+  loading: false,
+  error: null,
+};
 
 export const articlesSlice = createSlice({
   name: "articles",
-  initialState: {
-    articles: [],
-    isLoading: false,
-    error: null,
-    article: null,
-  },
+  initialState,
   reducers: {
-    getArticlesFetch: (state) => {
-      state.isLoading = false;
+    articlesRequested: (state) => {
+      state.loading = true;
+      state.error = null;
     },
-    getArticlesSuccess: (state, action) => {
+    articlesReceived: (state, action) => {
+      state.loading = false;
+      state.error = null;
       state.articles = action.payload;
-      state.isLoading = false;
     },
-    getArticlesFailure: (state, action) => {
-      state.isLoading = false;
-      state.error = action.payload.error;
+    articlesRequestFailed: (state, action) => {
+      state.loading = false;
+      state.error = action.payload;
     },
-    filterArticles: (state, action) => {},
-    onArticleCreate: (state, action) => {
-      console.log(action.payload);
+    articlesRequestedByAdmin: (state, action) => {
+      state.loading = true;
+      state.error = null;
     },
-    onArticleUpdate: (state, action) => {
-      console.log("Updating...");
-      console.log(action.payload);
+    articlesReceivedForAdmin: (state, action) => {
+      state.loading = false;
+      state.error = null;
+      state.articles = action.payload;
     },
-    onArticleDelete: (state, action) => {
-      console.log(action.payload);
-      console.log("deleting...");
+    articlesRequestFailedForAdmin: (state, action) => {
+      state.loading = false;
+      state.error = action.payload;
     },
-    onArticleFetch: (state, action) => {
-      console.log(action.payload);
-      state.isLoading = true;
+    articleAdded: (state, action) => {
+      let article = action.payload;
+      state.articles.push(article);
     },
-    getArticleSuccess: (state, action) => {
-      state.article = action.payload;
-      state.isLoading = false;
+    articleUpdated: (state, action) => {
+      const { id, ...updatedArticle } = action.payload;
+      const index = state.articles.findIndex((article) => article.id === id);
+      if (index !== -1) {
+        state.articles[index] = { ...state.articles[index], ...updatedArticle };
+      }
+    },
+    articleDeleted: (state, action) => {
+      state.articles = state.articles.filter(
+        (article) => article.id !== action.payload
+      );
     },
   },
 });
+
 export const {
-  getArticlesFetch,
-  getArticlesSuccess,
-  getArticlesFailure,
-  filterArticles,
-  onArticleCreate,
-  onArticleUpdate,
-  onArticleDelete,
-  onArticleFetch,
-  getArticleSuccess,
+  articlesRequested,
+  articlesReceived,
+  articlesRequestFailed,
+  articleAdded,
+  articleUpdated,
+  articleDeleted,
+  articlesReceivedForAdmin,
+  articlesRequestedByAdmin,
+  articlesRequestFailedForAdmin,
 } = articlesSlice.actions;
+
 export default articlesSlice.reducer;

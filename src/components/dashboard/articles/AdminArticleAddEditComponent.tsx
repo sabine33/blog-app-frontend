@@ -1,63 +1,55 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  onArticleCreate,
-  onArticleDelete,
-  onArticleFetch,
-  onArticleUpdate,
-} from "../../../store/slices/articlesSlice";
 import { useParams } from "react-router";
 import { Article } from "../../../helpers/apiHelper";
 import ReactQuill from "react-quill";
-
 import "react-quill/dist/quill.snow.css";
 import UploadImageComponent, { UploadedFile } from "./UploadImageComponent";
 import { categories } from "../../../constants/articles";
+import { ArticleType } from "../../../types";
+import {
+  articleDeleted,
+  articleUpdated,
+  articleAdded,
+} from "../../../store/slices/articlesSlice";
+
+const isEditForm = (id: string) => id !== "add";
 
 function AdminArticleAddEditComponent() {
-  const { id = -1 } = useParams();
   const dispatch = useDispatch();
+  const { id } = useParams();
   const [title, setTitle] = useState("");
   const [thumbnailUrl, setThumbnailUrl] = useState("");
   const [content, setContent] = useState("");
-  const [category, setCategory] = useState("");
+  const [category, setCategory] = useState("world");
 
   useEffect(() => {
-    if (id && +id >= 0) {
-      Article.getArticle(+id)
+    if (isEditForm(id!)) {
+      Article.getArticle(id!)
         .then((response) => {
-          let article = response.data;
+          let article = response.data as ArticleType;
           setTitle(article.title);
           setContent(article.content);
+          setCategory(article.category || "world");
           setThumbnailUrl(article.thumbnailUrl);
         })
         .catch((err) => {
-          console.log(err);
+          alert(err.message || "Error loading content.");
         });
     }
   }, [id]);
 
   const handleSubmit = () => {
-    const articleContent = { title, content, thumbnailUrl };
-    if (!id || !Number.parseInt(id)) {
-      return;
-    }
-    if (+id < 0) {
-      dispatch(onArticleCreate({ article: articleContent }));
+    const articleContent = { title, content, thumbnailUrl, category };
+
+    if (isEditForm(id!)) {
+      dispatch(articleUpdated({ id: id, article: articleContent }));
     } else {
-      console.log(id);
-      dispatch(onArticleUpdate({ id: +id, article: articleContent }));
+      dispatch(articleAdded({ article: articleContent }));
     }
   };
   const handleDelete = () => {
-    dispatch(onArticleDelete({ id }));
-  };
-
-  const getTitle = () => {
-    if (!id) {
-      return;
-    }
-    return +id >= 0 ? "Edit Article" : "Add Article";
+    dispatch(articleDeleted({ id }));
   };
 
   const handleFileUpload = (fileUrl: string) => {
@@ -83,6 +75,7 @@ function AdminArticleAddEditComponent() {
                 onChange={(e) => setTitle(e.target.value)}
               />
             </div>
+
             <div className="mb-3 form-group">
               <label htmlFor="" className="form-label">
                 Category
@@ -93,10 +86,13 @@ function AdminArticleAddEditComponent() {
                 onChange={(e) => setCategory(e.target.value)}
               >
                 {categories.map((item) => (
-                  <option value={item}>{item}</option>
+                  <option key={item} value={item}>
+                    {item}
+                  </option>
                 ))}
               </select>
             </div>
+
             <div className="mb-3">
               <label htmlFor="" className="form-label">
                 Content
@@ -133,13 +129,15 @@ function AdminArticleAddEditComponent() {
             >
               Save
             </button>
-            <button
-              type="button"
-              className="btn btn-danger mx-2"
-              onClick={handleDelete}
-            >
-              Delete
-            </button>
+            {isEditForm(id!) && (
+              <button
+                type="button"
+                className="btn btn-danger mx-2"
+                onClick={handleDelete}
+              >
+                Delete
+              </button>
+            )}
           </div>
         </div>
       </div>

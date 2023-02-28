@@ -1,13 +1,14 @@
 import React, { FormEvent } from "react";
 import { useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
-import { logoutUser } from "../../store/slices/authSlice";
+import { Link, Navigate, useNavigate } from "react-router-dom";
+import { logout } from "../../store/slices/authSlice";
 
 function HeaderComponent() {
   const dispatch = useDispatch();
-
+  const navigate = useNavigate();
   function handleSignout(event: FormEvent) {
-    dispatch(logoutUser());
+    dispatch(logout());
+    navigate("/");
   }
 
   return (
@@ -20,7 +21,7 @@ function HeaderComponent() {
           className="btn btn-outline-primary text-black"
           replace={true}
           reloadDocument={true}
-          to={"/dashboard/articles/-1"}
+          to={"/dashboard/articles/add"}
         >
           Add New Article
         </Link>
