@@ -3,8 +3,8 @@ import { useParams } from "react-router";
 import { ArticleType } from "../../../types";
 import "../../../styles/SingleArticle.scss";
 import { useSelector } from "react-redux";
-import { Article } from "../../../helpers/apiHelper";
 import Parser from "html-react-parser";
+import { Article } from "../../../helpers/api";
 
 function ArticleDetailPage() {
   const [article, setArticle] = useState<ArticleType | undefined>(undefined);

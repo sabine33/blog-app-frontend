@@ -5,7 +5,6 @@ import { articlesRequested } from "../../../store/slices/articlesSlice";
 import { ArticleType } from "../../../types";
 import ArticlesListComponent from "./ArticlesListComponent";
 import HeadlinePostComponent from "./HeadlinePostComponent";
-import SingleArticleCardComponent from "./SingleArticleCardComponent";
 
 const ARTICLES_PER_PAGE = 10;
 const ArticlesList = () => {

@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router";
-import { Article } from "../../../helpers/apiHelper";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import UploadImageComponent, { UploadedFile } from "./UploadImageComponent";
@@ -12,6 +11,7 @@ import {
   articleUpdated,
   articleAdded,
 } from "../../../store/slices/articlesSlice";
+import { Article } from "../../../helpers/api";
 
 const isEditForm = (id: string) => id !== "add";
 
@@ -27,14 +27,14 @@ function AdminArticleAddEditComponent() {
   useEffect(() => {
     if (isEditForm(id!)) {
       Article.getArticle(id!)
-        .then((response) => {
+        .then((response: any) => {
           let article = response.data as ArticleType;
           setTitle(article.title);
           setContent(article.content);
           setCategory(article.category || "world");
           setThumbnailUrl(article.thumbnailUrl);
         })
-        .catch((err) => {
+        .catch((err: any) => {
           alert(err.message || "Error loading content.");
         });
     }

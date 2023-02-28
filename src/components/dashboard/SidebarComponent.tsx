@@ -10,11 +10,7 @@ function SidebarComponent() {
             Dashboard
           </Link>
         </li>
-        {/* <li className="menu__item">
-          <Link className="menu__link" to="/dashboard/profile">
-            Profile
-          </Link>
-        </li> */}
+
         <li className="menu__item">
           <Link className="menu__link" to="/dashboard/articles">
             Articles

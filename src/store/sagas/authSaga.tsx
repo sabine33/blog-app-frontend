@@ -1,12 +1,15 @@
 import { AxiosError } from "axios";
 import { put, call, takeLatest } from "redux-saga/effects";
-import { Auth } from "../../helpers/apiHelper";
+import { Auth } from "../../helpers/api";
 import { APIResponseType } from "../../types";
 import { loginStart, loginSuccess, loginFail } from "../slices/authSlice";
 
 const DASHBOARD_PATH = "/dashboard";
-
-function* handleLogin(action: any) {
+/**
+ * Saga for handling login
+ * @param action payload:code & navigate
+ */
+function* handleLogin(action: any): Generator<any, void, APIResponseType> {
   try {
     const { code, navigate } = action.payload;
     const response: APIResponseType = yield call(() =>

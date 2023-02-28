@@ -8,7 +8,11 @@ function HomePageArticlesListComponent({
 }) {
   return (
     <div className="articles py-3 bg-light">
-      <ArticlesListComponent articles={articles} itemsPerPage={5} />
+      <ArticlesListComponent
+        articles={articles}
+        itemsPerPage={5}
+        isEditable={false}
+      />
     </div>
   );
 }
