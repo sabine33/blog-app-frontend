@@ -3,7 +3,6 @@ import queryString from "query-string";
 import { useNavigate } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
-import { Auth, setAuthToken } from "../../../helpers/apiHelper";
 import { loginStart } from "../../../store/slices/authSlice";
 
 function GithubLoginCallbackPage() {

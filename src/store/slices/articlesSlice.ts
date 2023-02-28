@@ -11,7 +11,9 @@ const initialState: ArticleState = {
   loading: false,
   error: null,
 };
-
+/**
+ * Slice for managing articles.
+ */
 export const articlesSlice = createSlice({
   name: "articles",
   initialState,

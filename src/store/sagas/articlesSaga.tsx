@@ -1,5 +1,5 @@
 import { takeLatest, put, call } from "redux-saga/effects";
-import { Article, Auth } from "../../helpers/apiHelper";
+import { Article } from "../../helpers/api";
 import { APIResponseType } from "../../types";
 import {
   articlesReceived,
@@ -9,6 +9,9 @@ import {
 } from "../slices/articlesSlice";
 import { setMessage } from "../slices/messageSlice";
 
+/**
+ * Fetches article from repo.
+ */
 function* fetchArticles() {
   try {
     const response: APIResponseType = yield call(() => Article.getArticles());
@@ -18,6 +21,10 @@ function* fetchArticles() {
     yield put(articlesRequestFailed(error.message));
   }
 }
+/**
+ * Fetch article for logged in user
+ * @param action
+ */
 function* fetchArticlesForAdmin(action: any) {
   try {
     const { id } = action.payload;
@@ -29,6 +36,10 @@ function* fetchArticlesForAdmin(action: any) {
   }
 }
 
+/**
+ * Add new article to the database.
+ * @param action
+ */
 function* addArticle(action: any) {
   try {
     const { article, navigate } = action.payload;
@@ -52,6 +63,10 @@ function* addArticle(action: any) {
   }
 }
 
+/**
+ * Update existing article.
+ * @param action
+ */
 function* updateArticle(action: any) {
   try {
     const { id, article, navigate } = action.payload;
@@ -76,7 +91,10 @@ function* updateArticle(action: any) {
     );
   }
 }
-
+/**
+ * Delete articles from the database.
+ * @param action
+ */
 function* deleteArticle(action: any) {
   try {
     const { id, navigate } = action.payload;
@@ -94,7 +112,7 @@ function* deleteArticle(action: any) {
   }
 }
 
-export function* watchArticles() {
+export function* articlesSaga() {
   yield takeLatest("articles/articlesRequested", fetchArticles);
   yield takeLatest("articles/articleAdded", addArticle);
   yield takeLatest("articles/articleUpdated", updateArticle);

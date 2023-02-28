@@ -20,7 +20,7 @@ function DashboardHomePage() {
             <div className="card-body">
               <h4 className="card-title">{user.name}</h4>
               <p className="card-text">{user.bio}</p>
-              <a href={user.url} className="btn btn-danger">
+              <a href={user.html_url} className="btn btn-danger">
                 See Profile
               </a>
             </div>

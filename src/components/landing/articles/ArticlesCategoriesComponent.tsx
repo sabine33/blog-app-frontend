@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-function Categories({ categories }: { categories: string[] }) {
+function ArticlesCategoriesComponent({ categories }: { categories: string[] }) {
   return (
     <div className="nav-scroller py-1 mb-2">
       <nav className="nav d-flex justify-content-center gap-3">
@@ -19,4 +19,4 @@ function Categories({ categories }: { categories: string[] }) {
   );
 }
 
-export default Categories;
+export default ArticlesCategoriesComponent;

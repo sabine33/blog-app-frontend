@@ -1,10 +1,10 @@
 import React from "react";
-import { Uploader } from "uploader"; // Installed by "react-uploader".
+import { Uploader } from "uploader";
 import { UploadButton, UploadDropzone } from "react-uploader";
 
 const options = { multi: false };
 const uploader = Uploader({
-  apiKey: "free", // Get production API keys from Upload.io
+  apiKey: "free",
 });
 
 function UploadImageComponent({
@@ -41,7 +41,6 @@ export const UploadedFile = ({ file }: { file: any }) => {
       <img
         src={file}
         className="img-responsive"
-        style={{}}
         alt="No Image preview available!"
       />
     </div>

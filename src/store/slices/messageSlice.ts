@@ -6,7 +6,9 @@ const initialState: MessageType = {
   content: "",
   type: "notification",
 };
-
+/**
+ * Slice for global notification.
+ */
 const messageSlice = createSlice({
   name: "message",
   initialState,
