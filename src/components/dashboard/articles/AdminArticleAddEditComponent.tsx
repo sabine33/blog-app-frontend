@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import { Article } from "../../../helpers/apiHelper";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
@@ -18,6 +18,7 @@ const isEditForm = (id: string) => id !== "add";
 function AdminArticleAddEditComponent() {
   const dispatch = useDispatch();
   const { id } = useParams();
+  const navigate = useNavigate();
   const [title, setTitle] = useState("");
   const [thumbnailUrl, setThumbnailUrl] = useState("");
   const [content, setContent] = useState("");
@@ -43,13 +44,15 @@ function AdminArticleAddEditComponent() {
     const articleContent = { title, content, thumbnailUrl, category };
 
     if (isEditForm(id!)) {
-      dispatch(articleUpdated({ id: id, article: articleContent }));
+      dispatch(articleUpdated({ id: id, article: articleContent, navigate }));
     } else {
-      dispatch(articleAdded({ article: articleContent }));
+      dispatch(articleAdded({ article: articleContent, navigate }));
     }
   };
   const handleDelete = () => {
-    dispatch(articleDeleted({ id }));
+    if (confirm("Are you sure to delete this article?")) {
+      dispatch(articleDeleted({ id, navigate }));
+    }
   };
 
   const handleFileUpload = (fileUrl: string) => {
@@ -59,7 +62,7 @@ function AdminArticleAddEditComponent() {
   return (
     <main className="admin__main">
       <div className="mx-2 px-4">
-        <h2 className="">Add Article</h2>
+        <h2 className="">Add/Edit Article</h2>
         <div className="row my-2">
           <div className="col text-start">
             <div className="mb-3 form-group">
