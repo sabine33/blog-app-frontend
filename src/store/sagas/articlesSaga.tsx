@@ -31,7 +31,7 @@ function* fetchArticlesForAdmin(action: any) {
 
 function* addArticle(action: any) {
   try {
-    const { article } = action.payload;
+    const { article, navigate } = action.payload;
     const result: APIResponseType = yield call(() =>
       Article.createArticle(article)
     );
@@ -41,6 +41,7 @@ function* addArticle(action: any) {
         content: "Article added successfully.",
       })
     );
+    yield navigate("/dashboard");
   } catch (error: any) {
     yield put(
       setMessage({
@@ -53,7 +54,7 @@ function* addArticle(action: any) {
 
 function* updateArticle(action: any) {
   try {
-    const { id, article } = action.payload;
+    const { id, article, navigate } = action.payload;
     // alert(JSON.stringify(article));
 
     const updated: APIResponseType = yield call(() =>
@@ -65,6 +66,7 @@ function* updateArticle(action: any) {
         type: "notification",
       })
     );
+    yield navigate("/dashboard");
   } catch (error: any) {
     yield put(
       setMessage({
@@ -77,7 +79,7 @@ function* updateArticle(action: any) {
 
 function* deleteArticle(action: any) {
   try {
-    const { id } = action.payload;
+    const { id, navigate } = action.payload;
     yield call(() => Article.deleteArticle(id));
     yield put(
       setMessage({
@@ -85,7 +87,9 @@ function* deleteArticle(action: any) {
         type: "notification",
       })
     );
+    yield navigate("/dashboard");
   } catch (error: any) {
+    alert(error.message);
     yield put(setMessage({ content: "Unable to delete article." }));
   }
 }

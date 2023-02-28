@@ -37,6 +37,7 @@ const ArticlesList = () => {
         <ArticlesListComponent
           articles={articles}
           itemsPerPage={ARTICLES_PER_PAGE}
+          isEditable={false}
         />
       </div>
     </div>
