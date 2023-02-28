@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { extractContent, formatDate, sliceContent } from "../../../helpers";
-import { onArticleDelete } from "../../../store/slices/articlesSlice";
 import { ArticleType } from "../../../types";
 
 const DEFAULT_IMAGE = "https://via.placeholder.com/200";
@@ -17,7 +16,7 @@ function SingleArticleCardComponent({
     <div className="item card shadow-md">
       <img
         src={article.thumbnailUrl ?? DEFAULT_IMAGE}
-        style={{ height: "200px" }}
+        style={{ height: "200px", objectFit: "contain" }}
       />
       <div className="card-body">
         <div className="h4">

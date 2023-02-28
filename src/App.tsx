@@ -12,6 +12,7 @@ import CategorizedArticlesPage from "./pages/landing/articles/CategorizedArticle
 import GithubLoginCallbackPage from "./pages/landing/auth/GithubLoginCallbackPage";
 import HomePage from "./pages/landing/HomePage";
 import NotFoundPage from "./pages/NotFoundPage";
+import ArticleForm from "./components/dashboard/articles/ArticleForm";
 import AdminArticleAddEditComponent from "./components/dashboard/articles/AdminArticleAddEditComponent";
 
 function App() {

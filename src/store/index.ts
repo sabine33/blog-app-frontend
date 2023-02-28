@@ -5,11 +5,10 @@ import articlesReducer from "./slices/articlesSlice";
 import authReducer from "./slices/authSlice";
 import messageReducer from "./slices/messageSlice";
 
-import articlesSaga from "./sagas/articlesSaga";
-import authSaga from "./sagas/authSaga";
-import rootSaga from "./sagas";
+import { watchArticles } from "./sagas/articlesSaga";
+import { authSaga } from "./sagas/authSaga";
 
-const saga = createSagaMiddleware();
+const sagaMiddleware = createSagaMiddleware();
 
 export const store = configureStore({
   reducer: {
@@ -17,11 +16,11 @@ export const store = configureStore({
     auth: authReducer,
     message: messageReducer,
   },
-  middleware: [saga],
+  middleware: [sagaMiddleware],
   devTools: true,
 });
 
-saga.run(articlesSaga);
-saga.run(authSaga);
+sagaMiddleware.run(watchArticles);
+sagaMiddleware.run(authSaga);
 export type AppDispatch = typeof store.dispatch;
 export type RootState = ReturnType<typeof store.getState>;

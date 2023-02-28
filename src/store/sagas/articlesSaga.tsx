@@ -1,85 +1,99 @@
-import axios, { AxiosResponse } from "axios";
-import { toast } from "react-hot-toast";
-import { call, put, takeEvery } from "redux-saga/effects";
-import { Article } from "../../helpers/apiHelper";
+import { takeLatest, put, call } from "redux-saga/effects";
+import { Article, Auth } from "../../helpers/apiHelper";
 import { APIResponseType } from "../../types";
-import { getArticlesSuccess, getArticleSuccess } from "../slices/articlesSlice";
+import {
+  articlesReceived,
+  articlesRequestFailed,
+  articlesReceivedForAdmin,
+  articlesRequestFailedForAdmin,
+} from "../slices/articlesSlice";
 import { setMessage } from "../slices/messageSlice";
 
-const API_URL = import.meta.env.VITE_APP_API_URL + "articles";
-
-//[TODO]:Backend side pagination
-function* workGetArticlesFetch() {
+function* fetchArticles() {
   try {
-    const result: APIResponseType = yield call(() => Article.getArticles());
-    yield put(getArticlesSuccess(result.data));
-  } catch (ex) {
-    console.log(ex);
+    const response: APIResponseType = yield call(() => Article.getArticles());
+    yield put(articlesReceived(response.data));
+  } catch (error: any) {
+    console.log(error);
+    yield put(articlesRequestFailed(error.message));
+  }
+}
+function* fetchArticlesForAdmin(action: any) {
+  try {
+    const { id } = action.payload;
+    const response: APIResponseType = yield call(() => Article.getByAuthor(id));
+    yield put(articlesReceivedForAdmin(response.data));
+  } catch (error: any) {
+    console.log(error);
+    yield put(articlesRequestFailedForAdmin(error.message));
   }
 }
 
-function* workCreateArticle(params: any) {
-  const { article } = params.payload;
+function* addArticle(action: any) {
   try {
+    const { article } = action.payload;
     const result: APIResponseType = yield call(() =>
       Article.createArticle(article)
     );
-    yield put(setMessage({ content: result.message, type: "notification" }));
-  } catch (ex) {
-    console.log(ex);
     yield put(
-      setMessage({ content: "Failed to save article.", type: "error" })
+      setMessage({
+        type: "notification",
+        content: "Article added successfully.",
+      })
     );
-  }
-}
-function* workUpdateArticle(params: any) {
-  const { id, article } = params.payload;
-  try {
-    const result: APIResponseType = yield call(() =>
-      Article.updateArticle(+id, article)
-    );
-    yield put(setMessage({ content: result.message, type: "notification" }));
-  } catch (ex) {
-    console.log(ex);
+  } catch (error: any) {
     yield put(
-      setMessage({ content: "Failed to save article.", type: "error" })
-    );
-  }
-}
-function* deleteArticle(params: any) {
-  const { id } = params.payload;
-  try {
-    const result: APIResponseType = yield call(() => Article.deleteArticle(id));
-
-    yield put(setMessage({ content: result.message, type: "notification" }));
-  } catch (ex) {
-    console.log(ex);
-    yield put(
-      setMessage({ content: "Failed to delete article.", type: "error" })
-    );
-  }
-}
-function* fetchArticle(params: any) {
-  const { id } = params.payload;
-  console.log(id);
-  try {
-    const result: APIResponseType = yield call(() => Article.getArticle(id));
-    yield put(getArticleSuccess(result.data));
-    yield put(setMessage({ content: result.message, type: "notification" }));
-  } catch (ex) {
-    console.log(ex);
-    yield put(
-      setMessage({ content: "Failed to save article.", type: "error" })
+      setMessage({
+        type: "error",
+        content: "Error adding article.",
+      })
     );
   }
 }
 
-function* articlesSaga() {
-  yield takeEvery("articles/getArticlesFetch", workGetArticlesFetch);
-  yield takeEvery("articles/onArticleCreate", workCreateArticle);
-  yield takeEvery("articles/onArticleUpdate", workUpdateArticle);
-  yield takeEvery("articles/onArticleDelete", deleteArticle);
-  yield takeEvery("articles/onArticleFetch", fetchArticle);
+function* updateArticle(action: any) {
+  try {
+    const { id, article } = action.payload;
+    // alert(JSON.stringify(article));
+
+    const updated: APIResponseType = yield call(() =>
+      Article.updateArticle(id, article)
+    );
+    yield put(
+      setMessage({
+        content: "Article successfully updated.",
+        type: "notification",
+      })
+    );
+  } catch (error: any) {
+    yield put(
+      setMessage({
+        content: "Failed to update article.",
+        type: "error",
+      })
+    );
+  }
 }
 
-export default articlesSaga;
+function* deleteArticle(action: any) {
+  try {
+    const { id } = action.payload;
+    yield call(() => Article.deleteArticle(id));
+    yield put(
+      setMessage({
+        content: "Article deleted successfully.",
+        type: "notification",
+      })
+    );
+  } catch (error: any) {
+    yield put(setMessage({ content: "Unable to delete article." }));
+  }
+}
+
+export function* watchArticles() {
+  yield takeLatest("articles/articlesRequested", fetchArticles);
+  yield takeLatest("articles/articleAdded", addArticle);
+  yield takeLatest("articles/articleUpdated", updateArticle);
+  yield takeLatest("articles/articleDeleted", deleteArticle);
+  yield takeLatest("articles/articlesRequestedByAdmin", fetchArticlesForAdmin);
+}

@@ -1,55 +1,52 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { UserType } from "../../types";
-const user = JSON.parse(localStorage.getItem("user") ?? "null");
-const code = JSON.parse(localStorage.getItem("code") ?? '""');
+import { getFromLocalStorage, storeToLocalStorage } from "../../helpers";
+import { setAuthToken } from "../../helpers/apiHelper";
 
-type AuthStateType = {
-  user: UserType | null;
-  isLoggedIn: boolean;
-  code: string;
-  error: string | null;
-};
-const initialState: AuthStateType = {
-  user: user && code ? user : null,
-  isLoggedIn: user && code ? true : false,
-  code: code,
-  error: null,
-};
+const user = getFromLocalStorage("user") || null;
+const token = getFromLocalStorage("token") || null;
 
 export const authSlice = createSlice({
   name: "auth",
-  initialState,
+  initialState: {
+    user: user,
+    token: token,
+    error: null,
+    loading: false,
+    isLoggedIn: false,
+  },
   reducers: {
-    getUserProfile: (state, action) => {
+    loginStart: (state, payload) => {
+      state.loading = true;
+      state.error = null;
       state.isLoggedIn = false;
-      state.code = action.payload.code;
-      localStorage.setItem("code", JSON.stringify(state.code));
-      console.log(state.code);
+
+      console.log(payload);
     },
-    setUserProfile: (state, action) => {
-      state.user = action.payload;
+    loginSuccess: (state, action) => {
+      state.loading = false;
+      state.error = null;
+      const { token, user } = action.payload;
       state.isLoggedIn = true;
-      console.log({ code: state.code, user: state.user });
-      localStorage.setItem("user", JSON.stringify(state.user));
+      state.token = token;
+      state.user = user;
+      localStorage.setItem("user", JSON.stringify(user));
+      localStorage.setItem("token", JSON.stringify(token));
     },
-    setLoginFailed: (state, action) => {
-      state.user = null;
-      state.isLoggedIn = false;
-      state.user = null;
-      state.code = "";
-      localStorage.removeItem("code");
-      localStorage.removeItem("user");
+    loginFail: (state, action) => {
+      state.loading = false;
       state.error = action.payload;
+      state.isLoggedIn = false;
     },
-    logoutUser: (state) => {
+    logout: (state) => {
       state.user = null;
-      state.code = "";
-      localStorage.removeItem("code");
-      localStorage.removeItem("user");
+      state.error = null;
+      state.loading = false;
       state.isLoggedIn = false;
     },
   },
 });
-export const { getUserProfile, setUserProfile, logoutUser, setLoginFailed } =
+
+export const { loginStart, loginSuccess, loginFail, logout } =
   authSlice.actions;
+
 export default authSlice.reducer;

@@ -1,40 +1,25 @@
-import axios, { AxiosResponse } from "axios";
-import { call, put, takeEvery } from "redux-saga/effects";
-import { getFromLocalStorage, getGithubUserProfile } from "../../helpers";
 import { AxiosError } from "axios";
-import { useNavigate } from "react-router";
-import {
-  getUserProfile,
-  setLoginFailed,
-  setUserProfile,
-} from "../slices/authSlice";
-import { setMessage } from "../slices/messageSlice";
+import { put, call, takeLatest } from "redux-saga/effects";
+import { Auth } from "../../helpers/apiHelper";
+import { APIResponseType } from "../../types";
+import { loginStart, loginSuccess, loginFail } from "../slices/authSlice";
 
-type ParamsType = {
-  type: string;
-  payload: any;
-};
+const DASHBOARD_PATH = "/dashboard";
 
-function* workGetUserProfile(params: ParamsType) {
-  const { code, navigate } = params.payload;
-
+function* handleLogin(action: any) {
   try {
-    const response: Promise<AxiosResponse<any, any>> = yield call(() =>
-      getGithubUserProfile(code)
+    const { code, navigate } = action.payload;
+    const response: APIResponseType = yield call(() =>
+      Auth.doLoginWithGithubCode(code)
     );
-    yield put(setUserProfile(response));
-    yield navigate("/dashboard");
-    window.location.reload();
-  } catch (error: any) {
-    const errorMessage = (error as AxiosError) && error?.response.data?.message;
-    yield put(setLoginFailed(errorMessage));
-    yield put(setMessage({ content: errorMessage, type: "error" }));
-    yield navigate("/");
+    const { token, user } = response.data;
+    yield put(loginSuccess({ token, user }));
+    yield navigate(DASHBOARD_PATH);
+  } catch (error) {
+    yield put(loginFail((error as AxiosError).message));
   }
 }
 
-function* authSaga() {
-  yield takeEvery("auth/getUserProfile", workGetUserProfile);
+export function* authSaga() {
+  yield takeLatest("auth/loginStart", handleLogin);
 }
-
-export default authSaga;

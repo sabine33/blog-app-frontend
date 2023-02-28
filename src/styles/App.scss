@@ -1,12 +1,8 @@
-#root {
-  text-align: center;
-}
-
 .articles {
   margin: 5px;
   display: flex;
-  justify-content: center;
   flex-wrap: wrap;
+  justify-content: center;
   gap: 10px;
 }
 

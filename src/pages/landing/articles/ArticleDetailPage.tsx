@@ -12,7 +12,7 @@ function ArticleDetailPage() {
 
   useEffect(() => {
     if (id) {
-      Article.getArticle(+id)
+      Article.getArticle(id)
         .then((response) => {
           let article = response.data;
           setArticle(article);
@@ -26,10 +26,14 @@ function ArticleDetailPage() {
   return (
     <div className="container article">
       <div className="row">
-        <div className="col-12 d-flex flex-column gap-5">
+        <div className="col-12 d-flex flex-column gap-5 text-center">
           <div className="article__title display-4">{article?.title}</div>
           <div className="article__thumbnail">
-            <img src={article?.thumbnailUrl} className="thumbnail" />
+            <img
+              src={article?.thumbnailUrl}
+              className="thumbnail"
+              alt="Image Thumbnail"
+            />
           </div>
           <div className="article__content text-start">
             <div>{Parser(article?.content ?? "")}</div>

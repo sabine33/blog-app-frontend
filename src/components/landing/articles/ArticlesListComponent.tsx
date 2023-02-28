@@ -2,14 +2,15 @@ import React, { useState } from "react";
 import ReactPaginate from "react-paginate";
 import { ArticleType } from "../../../types";
 import SingleArticleCardComponent from "./SingleArticleCardComponent";
-import ArticleCard from "./SingleArticleCardComponent";
 
 function ArticlesListComponent({
   articles,
   itemsPerPage = 5,
+  isEditable = false,
 }: {
   articles: ArticleType[];
   itemsPerPage: number;
+  isEditable: boolean;
 }) {
   const [itemOffset, setItemOffset] = useState(0);
   const endOffset = itemOffset + itemsPerPage;
@@ -31,7 +32,7 @@ function ArticlesListComponent({
           <SingleArticleCardComponent
             article={article}
             key={article.id}
-            isEditable={false}
+            isEditable={isEditable}
           />
         ))}
       </div>
