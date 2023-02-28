@@ -8,7 +8,9 @@ export const categories = [
   "Travel",
 ];
 export const DEFAULT_THUMBNAIL = "https://picsum.photos/300/200";
-
+/**
+ * List of articles for test purpose.
+ */
 export const articles: ArticleType[] = [
   {
     id: 1,

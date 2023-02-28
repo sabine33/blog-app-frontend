@@ -5,6 +5,7 @@ import { extractContent, formatDate, sliceContent } from "../../../helpers";
 import { ArticleType } from "../../../types";
 
 const DEFAULT_IMAGE = "https://via.placeholder.com/200";
+
 function SingleArticleCardComponent({
   article,
   isEditable = false,

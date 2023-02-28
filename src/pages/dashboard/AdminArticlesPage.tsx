@@ -22,18 +22,15 @@ function AdminArticlesPage() {
               No Articles Found.
             </div>
           )}
-
-          {articles.length < 1 ? (
-            <p className="text-center">No Articles Found.</p>
-          ) : (
-            <div className="container">
-              <ArticlesListComponent
-                articles={articles}
-                itemsPerPage={6}
-                isEditable={true}
-              />
-            </div>
-          )}
+          : (
+          <div className="container">
+            <ArticlesListComponent
+              articles={articles}
+              itemsPerPage={6}
+              isEditable={true}
+            />
+          </div>
+          )
         </div>
       </div>
     </div>

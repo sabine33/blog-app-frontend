@@ -1,10 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { getFromLocalStorage, storeToLocalStorage } from "../../helpers";
-import { setAuthToken } from "../../helpers/apiHelper";
 
 const user = getFromLocalStorage("user") || null;
 const token = getFromLocalStorage("token") || null;
-
+/**
+ * Slice for authentication module.
+ */
 export const authSlice = createSlice({
   name: "auth",
   initialState: {
@@ -19,13 +20,12 @@ export const authSlice = createSlice({
       state.loading = true;
       state.error = null;
       state.isLoggedIn = false;
-
-      console.log(payload);
     },
     loginSuccess: (state, action) => {
+      const { token, user } = action.payload;
+
       state.loading = false;
       state.error = null;
-      const { token, user } = action.payload;
       state.isLoggedIn = true;
       state.token = token;
       state.user = user;

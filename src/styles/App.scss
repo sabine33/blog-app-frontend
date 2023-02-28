@@ -4,24 +4,21 @@
   flex-wrap: wrap;
   justify-content: center;
   gap: 10px;
-}
-
-.articles .item {
-  margin: 10px;
-  width: 300px;
-  max-width: 400px;
-  min-width: 300px;
-  .card-text,
-  .date {
-    font-size: 1.2rem !important;
+  .item {
+    margin: 10px;
+    width: 300px;
+    max-width: 400px;
+    min-width: 300px;
+    .card-text,
+    .date {
+      font-size: 1.2rem !important;
+    }
   }
 }
 
 .pagination > li {
   display: inline-block;
   padding-left: 0;
-}
-.pagination > li {
   list-style: none;
   border: 0.9px solid;
 }
@@ -64,4 +61,78 @@
   padding: 0px !important;
   border-top-right-radius: 4px;
   display: none !important;
+}
+/* Style the active class (and buttons on mouse-over) */
+.pagination {
+  > li {
+    display: inline-block;
+    padding-left: 0;
+    list-style: none;
+    border: 0.9px solid;
+    > a {
+      position: relative;
+      float: left;
+      padding: 6px 12px;
+      line-height: 1.42857143;
+      text-decoration: none;
+      color: #2c689c;
+      background-color: #fff;
+      border: 1px solid #ddd;
+      margin-left: -1px;
+      &:hover {
+        background-color: #218838;
+        color: white;
+      }
+    }
+    > span {
+      position: relative;
+      float: left;
+      padding: 6px 12px;
+      line-height: 1.42857143;
+      text-decoration: none;
+      color: #2c689c;
+      background-color: #fff;
+      border: 1px solid #ddd;
+      margin-left: -1px;
+    }
+    &:first-child {
+      > a {
+        margin-left: 0;
+        padding: 0px;
+        border-bottom-left-radius: 4px;
+        border-top-left-radius: 4px;
+        display: none !important;
+      }
+      > span {
+        margin-left: 0;
+        padding: 0px;
+        border-bottom-left-radius: 4px;
+        border-top-left-radius: 4px;
+        display: none !important;
+      }
+    }
+    &:last-child {
+      > a {
+        border-bottom-right-radius: 4px;
+        margin-right: 0;
+        padding: 0px !important;
+        border-top-right-radius: 4px;
+        display: none !important;
+      }
+      > span {
+        border-bottom-right-radius: 4px;
+        margin-right: 0;
+        padding: 0px !important;
+        border-top-right-radius: 4px;
+        display: none !important;
+      }
+    }
+  }
+  > li.active {
+    > a {
+      color: #fff;
+      background-color: #218838;
+      border-color: #1e7e34;
+    }
+  }
 }
