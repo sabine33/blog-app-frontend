@@ -1,21 +1,17 @@
 import jwtDecode from "jwt-decode";
 
 // Check if token is expired
-export const isTokenExpired = (token: string) => {
+export const isTokenValid = (token: string) => {
   const decodedToken: any = jwtDecode(token);
   const currentTime = Date.now() / 1000;
-  console.log(decodedToken);
-  return decodedToken.exp < currentTime;
+  //if token expiry time is greater than current time it is valid.
+  return decodedToken.exp > currentTime;
 };
 
-// Middleware to check if token is expired before making any API requests
-const authMiddleware = (store: any) => (next: any) => (action: any) => {
+export const isAuthValid = () => {
   const token = localStorage.getItem("token");
-  if (token && isTokenExpired(token)) {
-    window.location.href = "/auth/github";
-  } else {
-    return next(action);
-  }
-};
+  const user = localStorage.getItem("user");
 
-export default authMiddleware;
+  if (!token || !user || !isTokenValid(token)) return false;
+  else return true;
+};

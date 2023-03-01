@@ -28,10 +28,10 @@ function ArticlesListComponent({
   return (
     <div>
       <div className="articles">
-        {currentItems.map((article: ArticleType) => (
+        {currentItems.map((article: ArticleType, index: number) => (
           <SingleArticleCardComponent
             article={article}
-            key={article.id}
+            key={index}
             isEditable={isEditable}
           />
         ))}

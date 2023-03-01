@@ -6,8 +6,7 @@ import authReducer from "./slices/authSlice";
 import messageReducer from "./slices/messageSlice";
 import { articlesSaga } from "./sagas/articlesSaga";
 import { authSaga } from "./sagas/authSaga";
-import authMiddleware from "../helpers/authHelper";
-
+import authMiddleware from "./middlewares/authMiddleware";
 const sagaMiddleware = createSagaMiddleware();
 /**
  * Entrypoint for a redux store

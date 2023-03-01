@@ -23,7 +23,6 @@ export const authSlice = createSlice({
     },
     loginSuccess: (state, action) => {
       const { token, user } = action.payload;
-
       state.loading = false;
       state.error = null;
       state.isLoggedIn = true;
@@ -42,6 +41,8 @@ export const authSlice = createSlice({
       state.error = null;
       state.loading = false;
       state.isLoggedIn = false;
+      localStorage.removeItem("user");
+      localStorage.removeItem("token");
     },
   },
 });

@@ -1,16 +1,16 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { isAuthValid } from "../../../helpers/authHelper";
 import GithubLoginButton from "../auth/GithubLoginButtonComponent";
 const BLOG_NAME = "LF NEWSPAPER";
 function Header() {
   const [isNavCollapsed, setIsNavCollapsed] = useState(true);
-  const { user, isLoggedIn } = useSelector((state: any) => state.auth);
 
   const BrandElement = () => (
     <li className="nav-item">
       <Link className="navbar-brand" to="/">
-        {BLOG_NAME}
+        {BLOG_NAME} {isAuthValid().toString()}
       </Link>
     </li>
   );
@@ -23,7 +23,6 @@ function Header() {
           <ul className="nav navbar-nav navbar-logo">
             <BrandElement />
           </ul>
-          {JSON.stringify(isLoggedIn)}
 
           <button
             className="custom-toggler navbar-toggler"
@@ -55,7 +54,7 @@ function Header() {
                 </Link>
               </li>
             </ul>
-            {!user ? (
+            {!isAuthValid() ? (
               <GithubLoginButton />
             ) : (
               <div className="d-grid gap-2">

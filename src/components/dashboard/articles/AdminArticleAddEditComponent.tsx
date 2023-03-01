@@ -101,7 +101,6 @@ function AdminArticleAddEditComponent() {
   };
 
   const handleFileUpload = (fileUrl: string) => {
-    alert(JSON.stringify(fileUrl));
     setFormValues({ ...formValue, thumbnailUrl: fileUrl });
   };
 
