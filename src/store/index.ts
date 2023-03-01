@@ -6,6 +6,7 @@ import authReducer from "./slices/authSlice";
 import messageReducer from "./slices/messageSlice";
 import { articlesSaga } from "./sagas/articlesSaga";
 import { authSaga } from "./sagas/authSaga";
+import authMiddleware from "../helpers/authHelper";
 
 const sagaMiddleware = createSagaMiddleware();
 /**
@@ -17,7 +18,7 @@ export const store = configureStore({
     auth: authReducer,
     message: messageReducer,
   },
-  middleware: [sagaMiddleware],
+  middleware: [sagaMiddleware, authMiddleware],
   devTools: true,
 });
 

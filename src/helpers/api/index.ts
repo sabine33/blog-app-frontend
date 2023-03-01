@@ -1,5 +1,15 @@
 import { APIResponseType, ArticleType } from "../../types";
 import { axiosRequest } from "../apiHelper";
+import { isTokenExpired } from "../authHelper";
+
+const isAuthValid = () => {
+  const token = localStorage.getItem("token");
+  if (token && isTokenExpired(token)) {
+    window.location.href = "/auth/github";
+  } else {
+    return Promise.resolve(true);
+  }
+};
 
 export const Article = {
   getArticles: (): Promise<APIResponseType> => axiosRequest.get("/articles"),

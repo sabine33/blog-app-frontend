@@ -22,7 +22,6 @@ function AdminArticlesPage() {
               No Articles Found.
             </div>
           )}
-          : (
           <div className="container">
             <ArticlesListComponent
               articles={articles}
@@ -30,7 +29,6 @@ function AdminArticlesPage() {
               isEditable={true}
             />
           </div>
-          )
         </div>
       </div>
     </div>
